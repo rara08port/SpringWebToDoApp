@@ -21,7 +21,7 @@ public class TaskDaoImplTest {
 	
 	@Test
     @DisplayName("findAllのテスト")
-    void findAll() {
+    void testfindAll() {
 		System.out.println("TaskDaoImplTest findAll Start");
 		List<Task> list = taskDao.findAll();
         System.out.println(list.get(0).getTitle());     
@@ -44,6 +44,102 @@ public class TaskDaoImplTest {
         assertEquals("最優先で取り掛かるべきタスク",list.get(0).getTaskType().getContent());
 
     }
+	
+	@Test
+    @DisplayName("insertのテスト")
+    void testInsert() {
+		
+		System.out.println("TaskDaoImplTest testInsert Start");
+		Task task = new Task();
+		task.setUserId(1);
+		task.setTypeId(1);
+		task.setTitle("InsertTest");
+		task.setDetail("Insertテストの詳細");
+		String date = "2021-07-07 10:12:34";
+        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		task.setDeadline(LocalDateTime.parse(date, dtFt));
+		
+		taskDao.insert(task);
+		
+		List<Task> list = taskDao.findAll();
+		
+		//件数チェック
+		assertEquals(3,list.size());
+		
+		
+		//Task taskx = list.get(2);
+		
+		//System.out.println(taskx.getDetail());
+		
+//		Task task1 = list.get(0);
+//		Task task2 = list.get(1);
+//		Task task3 = list.get(2);
+//		System.out.println(task1.getDetail());
+//		System.out.println(task2.getDetail());
+//		System.out.println(task3.getDetail());
+		
+		/*
+		assertEquals(3,taskx.getId());
+        assertEquals(1,taskx.getUserId());
+        assertEquals(1,taskx.getTypeId());
+        assertEquals("InsertTest",taskx.getTitle());
+        assertEquals("Insertテストの詳細",taskx.getDetail());
+        assertEquals(LocalDateTime.parse(date, dtFt),taskx.getDeadline());
+        */
+		
+
+    }
+	
+	@Test
+    @DisplayName("updateのテスト")
+    void testUpdate() {
+		
+		System.out.println("TaskDaoImplTest testUpdate Start");
+		Task task = new Task();
+		task.setId(1);
+		task.setUserId(1);
+		task.setTypeId(3);
+		task.setTitle("Title Update");
+		task.setDetail("Detail Update");
+		String date = "2021-07-17 12:34:56";
+        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		task.setDeadline(LocalDateTime.parse(date, dtFt));
+		
+		taskDao.update(task);
+		
+		List<Task> list = taskDao.findAll();
+		
+		//件数チェック
+		assertEquals(2,list.size());
+		
+		Task taskx = list.get(0);
+				
+		assertEquals(1,taskx.getId());
+        assertEquals(1,taskx.getUserId());
+        assertEquals(3,taskx.getTypeId());
+        assertEquals("Title Update",taskx.getTitle());
+        assertEquals("Detail Update",taskx.getDetail());
+        assertEquals(LocalDateTime.parse(date, dtFt),taskx.getDeadline());
+        
+
+    }
+	
+	@Test
+    @DisplayName("deleteのテスト")
+    void testDeleteById() {
+		
+		System.out.println("TaskDaoImplTest testDelete Start");
+		
+		taskDao.deleteById(2);
+		
+		List<Task> list = taskDao.findAll();
+		
+		//件数チェック
+		assertEquals(1,list.size());
+		
+    }
+	
+	
 	
 	
 

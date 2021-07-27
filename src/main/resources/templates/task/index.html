@@ -8,6 +8,18 @@
 <h1 th:text="${title}">ようこそ</h1>
 
 
+<form method="POST" th:action="@{/task/insert}">
+	<input type="submit" value="Insert送信">
+</form>
+
+<form method="POST" th:action="@{/task/update}">
+	<input type="submit" value="Update送信">
+</form>
+
+<form method="POST" th:action="@{/task/delete}">
+	<input type="submit" value="Delete送信">
+</form>
+
 <table>
   <tr th:each="list : ${taskList}">
     <td th:text=${list.id}></td>

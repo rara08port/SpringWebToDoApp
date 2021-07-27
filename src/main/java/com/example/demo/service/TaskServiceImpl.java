@@ -33,18 +33,21 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void insert(Task task) {
 		// TODO 自動生成されたメソッド・スタブ
+		dao.insert(task);
 
 	}
 
 	@Override
 	public void update(Task task) {
 		// TODO 自動生成されたメソッド・スタブ
+		dao.update(task);
 
 	}
 
 	@Override
 	public void deleteById(int id) {
 		// TODO 自動生成されたメソッド・スタブ
+		dao.deleteById(id);
 
 	}
 

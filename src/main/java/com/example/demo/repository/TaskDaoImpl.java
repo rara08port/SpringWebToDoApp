@@ -65,19 +65,25 @@ public class TaskDaoImpl implements TaskDao {
     @Override
     public void insert(Task task) {
         // TODO 自動生成されたメソッド・スタブ
+    	
+    	jdbcTemplate.update("INSERT INTO task(user_id,type_id,title,detail,deadline) VALUES(?,?,?,?,?)",
+    			task.getUserId(),task.getTypeId(),task.getTitle(),task.getDetail(),task.getDeadline());
 
     }
 
     @Override
-    public int update(Task task) {
+    public void update(Task task) {
         // TODO 自動生成されたメソッド・スタブ
-        return 0;
+    	jdbcTemplate.update("UPDATE task SET type_id = ?, title = ?, detail = ?,deadline = ? WHERE id = ?",
+				task.getTypeId(), task.getTitle(), task.getDetail(), task.getDeadline(), task.getId() );
+        
     }
 
     @Override
-    public int deleteById(int id) {
+    public void deleteById(int id) {
         // TODO 自動生成されたメソッド・スタブ
-        return 0;
+    	jdbcTemplate.update("DELETE FROM task WHERE id = ?", id);
+        
     }
 
     @Override
