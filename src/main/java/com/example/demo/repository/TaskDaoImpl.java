@@ -26,7 +26,7 @@ public class TaskDaoImpl implements TaskDao {
         // TODO 自動生成されたメソッド・スタブ
         
         String sql = "SELECT task.id, user_id, type_id, title, detail, deadline, "
-                + "type,content FROM task "
+                + "type, content FROM task "
                 + "INNER JOIN task_type ON task.type_id = task_type.id";
         
         List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
