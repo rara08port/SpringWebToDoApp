@@ -27,7 +27,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Optional<Task> getTask(int id) {
 		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return dao.findById(id);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<Task> findByType(int typeId) {
 		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return dao.findByType(typeId);
 	}
 
 }

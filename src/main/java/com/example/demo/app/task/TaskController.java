@@ -3,6 +3,7 @@ package com.example.demo.app.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,9 +43,30 @@ public class TaskController {
     
     
     /**
+     * 一件タスクデータを取得し、フォーム内に表示
+     * @param model
+     * @return
+     */
+    @GetMapping("/{id}")
+    public String updateTask(Model model) {
+
+        Optional<Task> taskOpt = taskService.getTask(1);
+        Task task = new Task();
+        
+        if(taskOpt.isPresent()) {
+        	task = taskOpt.get();
+        }
+
+        model.addAttribute("task", task);
+        List<Task> taskList = taskService.findAll();
+        model.addAttribute("taskList", taskList);
+        model.addAttribute("title", "更新用フォーム");
+
+        return "task/index";
+    }
+    
+    /**
      * タスクデータを一件挿入
-     * @param taskForm
-     * @param result
      * @param model
      * @return
      */
@@ -100,7 +122,6 @@ public class TaskController {
     
     /**
      * タスクidを取得し、一件のデータ削除
-     * @param id
      * @param model
      * @return
      */
@@ -110,6 +131,22 @@ public class TaskController {
     	//タスクを一件削除しリダイレクト
         taskService.deleteById(1);
         return "redirect:/task";
+    }
+    
+    /**
+     * 選択したタスクタイプのタスク一覧を表示
+     * @param model
+     * @return
+     */
+    @GetMapping("/selectType")
+    public String selectType( Model model) {
+
+        List<Task> taskList = taskService.findByType(1);
+
+        model.addAttribute("taskList", taskList);
+        model.addAttribute("title", "タスク一覧");
+
+        return "task/index";
     }
     
     
