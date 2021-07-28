@@ -54,37 +54,6 @@
 
 <p><a th:href="@{/task}">戻る</a></p>
 
-<!--
-<form method="POST" th:action="@{/task/update}">
-    <input type="submit" value="Update送信">
-</form>
-
-<form method="POST" th:action="@{/task/delete}">
-    <input type="submit" value="Delete送信">
-</form>
--->
-<!--
-<table>
-  <tr th:each="list : ${taskList}">
-    <td th:text=${list.id}></td>
-    <td th:text=${list.title}></td>
-    <td th:text=${list.deadline}></td>
-    <td><a type="button" th:href="@{/task/{id}(id=${list.id})}">編集</a></td>
-    <td>
-      <form method="POST" th:action="@{/task/delete}">
-      <input type="hidden" name="taskId" th:value="${list.id}">
-      <input type="submit" value="削除">
-      </form>
-    </td>
-  </tr>
-</table>
--->
-
-<h3>タスク以下</h3>
-<!--
-<td th:text=${task.title}></td>
--->
-
 </div>
 </body>
 </html>
