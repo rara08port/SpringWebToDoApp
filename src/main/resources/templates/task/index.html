@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div style="margin-left:auto;margin-right:auto;text-align:left;width:650px;border:solid 1px black;">
+<div style="margin-left:auto;margin-right:auto;text-align:left;width:850px;border:solid 1px black;">
 
 <h1 th:text="${title}">ようこそ</h1>
 
@@ -29,12 +29,12 @@
       <input type="text" name="title" th:value="*{title}" />
       <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></div>
       </td>
-      <td style="width:200px;"></td>
+      <td style="width:400px;"></td>
     </tr>
     <tr>
       <td style="border:solid 1px black;"><label>タスク詳細：</label></td>
       <td colspan="2" style="border:solid 1px black;">
-      <input type="text" name="detail" th:value="*{detail}" style="width:350px;"/>
+      <input type="text" name="detail" th:value="*{detail}" style="width:550px;"/>
       <div th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" style="color:red;"></div>
       </td>
       
@@ -48,16 +48,9 @@
       <td style="width:200px;"></td>
     </tr>
   </table>
-    <input type="submit" value="Insert送信">
+    <input type="submit" value="タスク登録">
 </form>
 
-<form method="POST" th:action="@{/task/update}">
-    <input type="submit" value="Update送信">
-</form>
-
-<form method="POST" th:action="@{/task/delete}">
-    <input type="submit" value="Delete送信">
-</form>
 
 <table>
   <tr th:each="list : ${taskList}">
@@ -74,10 +67,25 @@
   </tr>
 </table>
 
-<h3>タスク以下</h3>
+<h3>タスクの絞り込み検索</h3>
 <!--
 <td th:text=${task.title}></td>
 -->
+<form method="GET" th:action="@{/task/selectTaskType}" th:object="${taskForm}">
+  <label>タスクタイプの絞りこみ検索</label>
+  <select name="typeId">
+    <option value="1" th:selected="*{typeId == 1}">緊急</option>
+    <option value="2" th:selected="*{typeId == 2}">重要</option>
+    <option value="3" th:selected="*{typeId == 3}">できれば</option>
+  </select><br>
+  <input type="submit" value="絞り込み検索">
+</form>
+<br>
+
+<form method="GET" th:action="@{/task}">
+  <input type="submit" value="絞り込み解除">
+</form>
+</div>
 
 </div>
 </body>

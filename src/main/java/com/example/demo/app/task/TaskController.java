@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Task;
 import com.example.demo.service.TaskService;
@@ -129,7 +130,7 @@ public class TaskController {
     		@Valid @ModelAttribute TaskForm taskForm,
         	BindingResult result,
         	@RequestParam("taskId") int taskId,
-        	Model model) {
+        	Model model,RedirectAttributes redirectAttributes) {
     	
 //    	Task task = new Task();
 //    	task.setId(1);
@@ -151,6 +152,8 @@ public class TaskController {
         	task.setDeadline(taskForm.getDeadline());
 
         	taskService.update(task);
+        	
+        	redirectAttributes.addFlashAttribute("complete", "変更が完了しました");
 
         	return "redirect:/task/" + taskId;
         } else {
@@ -186,10 +189,12 @@ public class TaskController {
      * @param model
      * @return
      */
-    @GetMapping("/selectType")
-    public String selectType( Model model) {
+    @GetMapping("/selectTaskType")
+    public String selectType(TaskForm taskForm,
+    		@RequestParam("typeId") int id,
+    		Model model) {
 
-        List<Task> taskList = taskService.findByType(1);
+        List<Task> taskList = taskService.findByType(id);
 
         model.addAttribute("taskList", taskList);
         model.addAttribute("title", "タスク一覧");
