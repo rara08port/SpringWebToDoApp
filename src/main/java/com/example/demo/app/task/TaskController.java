@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Task;
 import com.example.demo.service.TaskService;
@@ -153,10 +154,10 @@ public class TaskController {
      * @return
      */
     @PostMapping("/delete")
-    public String delete(Model model) {
+    public String delete(@RequestParam("taskId") int id,Model model) {
 
     	//タスクを一件削除しリダイレクト
-        taskService.deleteById(1);
+        taskService.deleteById(id);
         return "redirect:/task";
     }
     
