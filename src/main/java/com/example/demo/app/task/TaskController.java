@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -52,21 +53,21 @@ public class TaskController {
      * @return
      */
     @GetMapping("/{id}")
-    public String updateTask(Model model) {
+    public String editTask(TaskForm taskForm,@PathVariable int id,Model model) {
 
-        Optional<Task> taskOpt = taskService.getTask(1);
+        Optional<Task> taskOpt = taskService.getTask(id);
         Task task = new Task();
         
         if(taskOpt.isPresent()) {
         	task = taskOpt.get();
         }
 
-        model.addAttribute("task", task);
+        model.addAttribute("taskForm", task);
         List<Task> taskList = taskService.findAll();
         model.addAttribute("taskList", taskList);
         model.addAttribute("title", "更新用フォーム");
 
-        return "task/index";
+        return "task/edit";
     }
     
     /**
