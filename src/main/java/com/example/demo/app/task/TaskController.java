@@ -150,14 +150,14 @@ public class TaskController {
         	task.setDetail(taskForm.getDetail());
         	task.setDeadline(taskForm.getDeadline());
 
-        	
         	taskService.update(task);
-        	//redirectAttributes.addFlashAttribute("complete", "変更が完了しました");
-            return "redirect:/task/" + taskId;
+
+        	return "redirect:/task/" + taskId;
         } else {
             model.addAttribute("taskForm", taskForm);
             model.addAttribute("title", "タスク一覧");
             return "task/index";
+            
         }
    
 //    	List<Task> taskList = taskService.findAll();
