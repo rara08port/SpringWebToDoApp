@@ -5,9 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,7 +34,7 @@ public class TaskController {
      * @return resources/templates下のHTMLファイル名
      */
     @GetMapping
-    public String task(Model model) {
+    public String task(TaskForm taskForm,Model model) {
 
         //Taskのリストを取得する
         List<Task> taskList = taskService.findAll();
@@ -67,26 +71,48 @@ public class TaskController {
     
     /**
      * タスクデータを一件挿入
+     * @param taskForm
+     * @param result
      * @param model
      * @return
      */
     @PostMapping("/insert")
-    public String insert(Model model) {
+    public String insert(@Valid @ModelAttribute TaskForm taskForm,BindingResult result, Model model) {
 
-        Task task = new Task();
-        task.setUserId(1);
-        task.setTypeId(1);
-        task.setTitle("インサート");
-        task.setDetail("インサートの詳細です");
-        String date = "2021-03-03 15:00:00";
-        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        task.setDeadline(LocalDateTime.parse(date, dtFt));
-    
-        taskService.insert(task);
-        List<Task> taskList = taskService.findAll();
-        model.addAttribute("taskList", taskList);
-        model.addAttribute("title", "タスク一覧（バリデーション）");
-        return "task/index";
+//        Task task = new Task();
+//        task.setUserId(1);
+//        task.setTypeId(1);
+//        task.setTitle("インサート");
+//        task.setDetail("インサートの詳細です");
+//        String date = "2021-03-03 15:00:00";
+//        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        task.setDeadline(LocalDateTime.parse(date, dtFt));
+    	
+    	
+    	if(!result.hasErrors()) {
+    		
+    		Task task = new Task();
+        	task.setUserId(1);
+        	task.setTypeId(taskForm.getTypeId());
+        	task.setTitle(taskForm.getTitle());
+        	task.setDetail(taskForm.getDetail());
+        	task.setDeadline(taskForm.getDeadline());
+        	
+        	taskService.insert(task);
+        	return "redirect:/task";
+        	
+            //List<Task> taskList = taskService.findAll();
+            //model.addAttribute("taskList", taskList);
+            //model.addAttribute("title", "タスク一覧（バリデーション）");
+            //return "task/index";
+    		
+    	}else {
+    		model.addAttribute("taskForm",taskForm);
+    		List<Task> taskList = taskService.findAll();
+            model.addAttribute("taskList", taskList);
+            model.addAttribute("title", "タスク一覧（バリデーション）");
+            return "task/index";
+    	}
         
     }
     

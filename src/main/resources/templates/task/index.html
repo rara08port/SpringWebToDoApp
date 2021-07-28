@@ -2,22 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>CRUDforTask</title>
+<title>タスク</title>
 </head>
 <body>
+
+<div style="margin-left:auto;margin-right:auto;text-align:left;width:650px;border:solid 1px black;">
+
 <h1 th:text="${title}">ようこそ</h1>
 
-
-<form method="POST" th:action="@{/task/insert}">
-	<input type="submit" value="Insert送信">
+<form method="POST" th:action="@{/task/insert}" th:object="${taskForm}">
+  <table order="1">
+    <tr style="border:solid 1px black;">
+      <td style="border:solid 1px black;"><label>タスクタイプ:</label></td>
+      <td style="border:solid 1px black;">
+        <select name="typeId">
+          <option value="1">緊急</option>
+          <option value="2">重要</option>
+          <option value="3">できれば</option>
+        </select>
+      </td>
+      <td style="width:200px;"></td>
+    </tr>
+    <tr>
+      <td style="border:solid 1px black;"><label>タスク：</label></td>
+      <td style="border:solid 1px black;">
+      <input type="text" name="title" th:value="*{title}" />
+      <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></div>
+      </td>
+      <td style="width:200px;"></td>
+    </tr>
+    <tr>
+      <td style="border:solid 1px black;"><label>タスク詳細：</label></td>
+      <td colspan="2" style="border:solid 1px black;">
+      <input type="text" name="detail" th:value="*{detail}" style="width:350px;"/>
+      <div th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" style="color:red;"></div>
+      </td>
+      
+    </tr>
+    <tr>
+      <td style="border:solid 1px black;"><label>期限：</label></td>
+      <td style="border:solid 1px black;">
+      <input type="datetime-local" name="deadline" th:value="*{deadline}" />
+      <div th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}" style="color:red;"></div>
+      </td>
+      <td style="width:200px;"></td>
+    </tr>
+  </table>
+    <input type="submit" value="Insert送信">
 </form>
 
 <form method="POST" th:action="@{/task/update}">
-	<input type="submit" value="Update送信">
+    <input type="submit" value="Update送信">
 </form>
 
 <form method="POST" th:action="@{/task/delete}">
-	<input type="submit" value="Delete送信">
+    <input type="submit" value="Delete送信">
 </form>
 
 <table>
@@ -31,6 +70,10 @@
 </table>
 
 <h3>タスク以下</h3>
+<!--
 <td th:text=${task.title}></td>
+-->
+
+</div>
 </body>
 </html>
