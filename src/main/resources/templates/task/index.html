@@ -51,7 +51,29 @@
   </table>
     <input type="submit" value="タスク登録" >
 </form>
+<br>
+<table>
+  <tr>
+    <td>
+    <form method="GET" th:action="@{/task/selectTaskType}" th:object="${taskForm}">
+      <label>タスクタイプの絞りこみ検索</label>
+        <select name="typeId">
+        <option value="1" th:selected="*{typeId == 1}">緊急</option>
+        <option value="2" th:selected="*{typeId == 2}">重要</option>
+        <option value="3" th:selected="*{typeId == 3}">できれば</option>
+        </select>
+     <input type="submit" value="絞り込み検索">
+    </form>
+    </td>
+    <td>
+      <form method="GET" th:action="@{/task}">
+      <input type="submit" value="絞り込み解除">
+      </form>
+    </td>
+  </tr>
+</table>
 
+<br>
 
 <table style="border-collapse:collapse;margin-left:0px;">
   <tr th:each="list : ${taskList}">
@@ -69,23 +91,7 @@
   </tr>
 </table>
 
-<h3>タスクの絞り込み検索</h3>
-<!--
-<td th:text=${task.title}></td>
--->
-<form method="GET" th:action="@{/task/selectTaskType}" th:object="${taskForm}">
-  <label>タスクタイプの絞りこみ検索</label>
-  <select name="typeId">
-    <option value="1" th:selected="*{typeId == 1}">緊急</option>
-    <option value="2" th:selected="*{typeId == 2}">重要</option>
-    <option value="3" th:selected="*{typeId == 3}">できれば</option>
-  </select>
-  <input type="submit" value="絞り込み検索">
-</form>
 
-<form method="GET" th:action="@{/task}">
-  <input type="submit" value="絞り込み解除">
-</form>
 
 </div>
 
