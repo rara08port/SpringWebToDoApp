@@ -64,7 +64,8 @@ public class TaskDaoImpl implements TaskDao {
         String sql = "SELECT task.id, user_id, type_id, title, detail, deadline, "
                 + "type, content FROM task "
                 + "INNER JOIN task_type ON task.type_id = task_type.id "
-                + "WHERE task.id = ?";
+                + "WHERE task.id = ? ";
+        
         Map<String, Object> result = jdbcTemplate.queryForMap(sql, id);
 
         Task task = new Task();
@@ -117,7 +118,8 @@ public class TaskDaoImpl implements TaskDao {
     	String sql = "SELECT task.id, user_id, type_id, title, detail, deadline, "
 				+ "type, content FROM task "
 				+ "INNER JOIN task_type ON task.type_id = task_type.id "
-				+ "WHERE task.type_id = ?";
+				+ "WHERE task.type_id = ? "
+				+ "ORDER BY deadline ASC";
 
 		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql,typeId);
 
