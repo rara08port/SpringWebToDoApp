@@ -125,25 +125,45 @@ public class TaskController {
      * @return
      */
     @PostMapping("/update")
-    public String update(Model model) {
+    public String update(
+    		@Valid @ModelAttribute TaskForm taskForm,
+        	BindingResult result,
+        	@RequestParam("taskId") int taskId,
+        	Model model) {
     	
-    	Task task = new Task();
-    	task.setId(1);
-        task.setUserId(1);
-        task.setTypeId(3);
-        task.setTitle("アップデート");
-        task.setDetail("アップデートの詳細です");
-        String date = "2021-07-27 15:12:34";
-        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        task.setDeadline(LocalDateTime.parse(date, dtFt));
+//    	Task task = new Task();
+//    	task.setId(1);
+//        task.setUserId(1);
+//        task.setTypeId(3);
+//        task.setTitle("アップデート");
+//        task.setDetail("アップデートの詳細です");
+//        String date = "2021-07-27 15:12:34";
+//        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        task.setDeadline(LocalDateTime.parse(date, dtFt));
+    	
+    	if (!result.hasErrors()) {
+    		Task task = new Task();
+    		task.setId(taskId);
+        	//task.setUserId(1);
+        	task.setTypeId(taskForm.getTypeId());
+        	task.setTitle(taskForm.getTitle());
+        	task.setDetail(taskForm.getDetail());
+        	task.setDeadline(taskForm.getDeadline());
 
-    	//更新処理
-    	taskService.update(task);
+        	
+        	taskService.update(task);
+        	//redirectAttributes.addFlashAttribute("complete", "変更が完了しました");
+            return "redirect:/task/" + taskId;
+        } else {
+            model.addAttribute("taskForm", taskForm);
+            model.addAttribute("title", "タスク一覧");
+            return "task/index";
+        }
    
-    	List<Task> taskList = taskService.findAll();
-        model.addAttribute("taskList", taskList);
-        model.addAttribute("title", "タスク一覧（バリデーション）");
-        return "task/index";
+//    	List<Task> taskList = taskService.findAll();
+//        model.addAttribute("taskList", taskList);
+//        model.addAttribute("title", "タスク一覧（バリデーション）");
+//        return "task/index";
         
     }
     
