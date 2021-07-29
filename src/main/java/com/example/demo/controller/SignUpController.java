@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.app.task.TaskForm;
 import com.example.demo.entity.Task;
+import com.example.demo.entity.User;
 import com.example.demo.form.SignUpForm;
 import com.example.demo.service.TaskService;
 import com.example.demo.service.UserService;
@@ -48,8 +49,26 @@ public class SignUpController {
     	
     	System.out.println(signupForm.getUsername());
     	System.out.println(signupForm.getPassword());
+    	User user = new User();
+    	user.setUsername(signupForm.getUsername());
+    	user.setPassword(signupForm.getPassword());
+    	user.setAdmin_flg(0);
+    	int count=10;
+    	//count = userService.findRegisterUser(user);
+    	System.out.println(count);
+    	
+		
+    	if(count==0) {
+    		System.out.println("ユーザ登録");
+    		//userService.insert(user);
+    		//return "task/index";
+    		return "redirect:/task";
+    	}
+
+    	
     	model.addAttribute("title", "ユーザ登録");
     	
+    	//return "redirect:/task/index";
     	 return "user/signup";
     }
     

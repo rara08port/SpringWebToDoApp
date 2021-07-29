@@ -47,16 +47,17 @@ public class UserDaoImplTest {
 		
 		System.out.println("UserDaoImplTest testfindRegisterUser Start");
 		User user = new User();
-		user.setUsername("blue");
-		user.setPassword("blue");
+		user.setUsername("dog");
+		user.setPassword("dog");
 		user.setAdmin_flg(0);
 		int count=10;
+		System.out.println(count);
 		count = userDao.findRegisterUser(user);
 		
 		System.out.println(count);
 		
 		//件数チェック
-        assertEquals(3,count);
+        assertEquals(1,count);
 
     }
 	

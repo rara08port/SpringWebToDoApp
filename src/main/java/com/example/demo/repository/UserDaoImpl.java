@@ -46,10 +46,23 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int findRegisterUser(User user) {
 		// TODO 自動生成されたメソッド・スタブ
-		int count=10;
-		String sql = "SELECT count(*) FROM user ";
+		System.out.println("UserDaoImp findRegisterUser");
 		
-		count = jdbcTemplate.queryForObject(sql,Integer.class);
+		int count=10;
+		String sql = "SELECT count(*) as count FROM user where name = ? ";
+		
+		//count = jdbcTemplate.queryForObject(sql,user.getUsername(),Integer.class);
+		System.out.println(user.getUsername());
+		Map<String, Object> result = jdbcTemplate.queryForMap(sql, user.getUsername());
+		//User userResult = new User();
+        //userResult.setUsername((String)result.get("name"));
+		//count = (Integer)result.get("count");
+		System.out.println((String)result.get("count"));
+        
+ 		//System.out.println(userResult.getId());
+		//System.out.println(result.size());
+		System.out.println("Dao");
+		System.out.println(count);
 		
 		return count;
 	}
