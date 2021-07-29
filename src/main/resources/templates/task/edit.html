@@ -3,49 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <title>タスク</title>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<div style="margin-left:auto;margin-right:auto;text-align:left;width:850px;border:solid 1px black;">
+<div style="margin-left:auto;margin-right:auto;text-align:left;width:850px;">
 
 <h1 th:text="${title}">ようこそ</h1>
 <p th:if="${complete}" th:text="${complete}"></p>
 <form method="POST" th:action="@{/task/update}" th:object="${taskForm}">
-  <table order="1">
-    <tr style="border:solid 1px black;">
-      <td style="border:solid 1px black;"><label>タスクタイプ:</label></td>
-      <td style="border:solid 1px black;">
+  <table style="border-collapse:collapse;" id="set_table">
+    <tr>
+      <td><label>タスクタイプ:</label></td>
+      <td>
         <select name="typeId">
           <option value="1" th:selected="*{typeId == 1}">緊急</option>
           <option value="2" th:selected="*{typeId == 2}">重要</option>
           <option value="3" th:selected="*{typeId == 3}">できれば</option>
         </select>
       </td>
-      <td style="width:400px;"></td>
+      <td class="dummy_td"></td>
     </tr>
     <tr>
-      <td style="border:solid 1px black;"><label>タスク：</label></td>
-      <td style="border:solid 1px black;">
-      <input type="text" name="title" th:value="*{title}" />
-      <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></div>
+      <td><label>タスク：</label></td>
+      <td>
+        <input type="text" name="title" th:value="*{title}" />
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></div>
       </td>
-      <td style="width:200px;"></td>
+      <td class="dummy_td"></td>
     </tr>
     <tr>
-      <td style="border:solid 1px black;"><label>タスク詳細：</label></td>
-      <td colspan="2" style="border:solid 1px black;">
+      <td><label>タスク詳細：</label></td>
+      <td colspan="2">
       <input type="text" name="detail" th:value="*{detail}" style="width:550px;"/>
       <div th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" style="color:red;"></div>
       </td>
       
     </tr>
     <tr>
-      <td style="border:solid 1px black;"><label>期限：</label></td>
-      <td style="border:solid 1px black;">
+      <td><label>期限：</label></td>
+      <td>
       <input type="datetime-local" name="deadline" th:value="*{deadline}" />
       <div th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}" style="color:red;"></div>
       </td>
-      <td style="width:200px;"></td>
+      <td class="dummy_td"></td>
     </tr>
   </table>
     <input type="hidden" name="taskId" th:value="*{id}"/>

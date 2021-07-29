@@ -12,41 +12,43 @@
 <h1 th:text="${title}">ようこそ</h1>
 
 <form method="POST" th:action="@{/task/insert}" th:object="${taskForm}">
-  <table order="0" style="border-collapse:collapse;margin-left:0px;">
-    <tr style="border:solid 1px black;">
-      <td style="border:solid 1px black;"><label>タスクタイプ:</label></td>
-      <td style="border:solid 1px black;">
+  <table style="border-collapse:collapse;" id="set_table">
+    <tr>
+      <td>タスクタイプ:</td>
+      <td>
         <select name="typeId">
           <option value="1" th:selected="*{typeId == 1}">緊急</option>
           <option value="2" th:selected="*{typeId == 2}">重要</option>
           <option value="3" th:selected="*{typeId == 3}">できれば</option>
         </select>
       </td>
-      <td style="width:200px;"></td>
+      <td class="dummy_td"></td>
+     
     </tr>
     <tr>
-      <td style="border:solid 1px black;"><label>タスク：</label></td>
-      <td style="border:solid 1px black;">
-      <input type="text" name="title" th:value="*{title}" />
-      <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></div>
+      <td>タスク：</td>
+      <td>
+        <input type="text" name="title" th:value="*{title}" style="width:240px;"/>
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></div>
       </td>
-      <td style="width:400px;"></td>
+      <td class="dummy_td"></td>
+     
     </tr>
     <tr>
-      <td style="border:solid 1px black;"><label>タスク詳細：</label></td>
-      <td colspan="2" style="border:solid 1px black;">
-      <input type="text" name="detail" th:value="*{detail}" style="width:550px;"/>
-      <div th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" style="color:red;"></div>
+      <td>タスク詳細：</td>
+      <td colspan="2">
+        <input type="text" name="detail" th:value="*{detail}" style="width:550px;"/>
+        <div th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" style="color:red;"></div>
       </td>
       
     </tr>
     <tr>
-      <td style="border:solid 1px black;"><label>期限：</label></td>
-      <td style="border:solid 1px black;">
+      <td>期限：</td>
+      <td>
       <input type="datetime-local" name="deadline" th:value="*{deadline}" />
       <div th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}" style="color:red;"></div>
       </td>
-      <td style="width:200px;"></td>
+      <td class="dummy_td"></td>
     </tr>
   </table>
     <input type="submit" value="タスク登録" >
@@ -56,7 +58,7 @@
   <tr>
     <td>
     <form method="GET" th:action="@{/task/selectTaskType}" th:object="${taskForm}">
-      <label>タスクタイプの絞りこみ検索</label>
+      <label>絞りこみ検索</label>
         <select name="typeId">
         <option value="1" th:selected="*{typeId == 1}">緊急</option>
         <option value="2" th:selected="*{typeId == 2}">重要</option>
@@ -76,16 +78,26 @@
 <br>
 
 <table style="border-collapse:collapse;margin-left:0px;">
+  <tr>
+    <td>No</td>
+    <td>タイプ</td>
+    <td>タスク</td>
+    <td>期限</td>
+  </tr>
   <tr th:each="list : ${taskList}">
     <td th:text=${list.id}></td>
     <td th:text=${list.taskType.type}></td>
     <td th:text=${list.title}></td>
     <td th:text=${list.deadline}></td>
-    <td><a type="button" th:href="@{/task/{id}(id=${list.id})}">編集</a></td>
+    <td>
+      <form method="GET" th:action="@{/task/{id}(id=${list.id})}">
+      <input type="submit" value="編集" class="edit_btn">
+      </form>
+    </td>
     <td>
       <form method="POST" th:action="@{/task/delete}">
       <input type="hidden" name="taskId" th:value="${list.id}">
-      <input type="submit" value="削除">
+      <input type="submit" value="削除" class="del_btn">
       </form>
     </td>
   </tr>

@@ -1,3 +1,16 @@
-td{
-  border:solid 1px black;	
+#set_table td{
+  border:solid 1px black;
+}
+
+.edit_btn{
+	background-color:#CCFFFF;
+}
+.del_btn{
+	background-color:#FFCCFF;
+}
+
+
+#set_table .dummy_td{
+	width:300px;
+	border:0;
 }
