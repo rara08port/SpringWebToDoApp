@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>タスク</title>
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+<!--<link th:href="@{/css/signup.css}" rel="stylesheet" type="text/css">-->
+<!--<script src="@{/js/bootstrap.min.js}"></script>-->
+</head>
+<body>
+
+
+<h1 th:text="${title}">ようこそ</h1>
+<!--<img th:src="@{/image/1907768.png}" />-->
+<!--<img th:src="@{/image/1907768.png}" style="width:160px;height:120px;"/>-->
+
+<div style="width:600px;border:solid 1px black;margin-left:auto;margin-right:auto;">
+<h1 class="h3 mt-2 mb-3 font-weight-normal" style="text-align:center;">登録</h1>
+<img th:src="@{/image/1907768.png}" style="width:160px;height:120px;margin-left:auto;margin-right:auto;display:block;"/>
+   <form class="w-75 mx-auto" th:action="@{/user/signup}" method="post">
+   <br>
+   <input class="form-control" id="username" type="text" name="username" placeholder="ユーザ名" required autofocus/>
+   <br>
+   <input class="form-control" id="password" type="password" name="password" placeholder="パスワード" required/>
+   <br>
+   <input class="btn btn-outline-primary my-1" type="submit" value="登録"/>
+   </form>
+</div>
+
+</body>
+</html>
