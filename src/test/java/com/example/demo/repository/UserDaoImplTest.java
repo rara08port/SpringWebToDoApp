@@ -21,52 +21,6 @@ public class UserDaoImplTest {
 	@Autowired
 	private UserDaoImpl userDao;
 	
-	/*
-	 * @Test
-	 * 
-	 * @DisplayName("findAllのテスト") void testfindAll() {
-	 * System.out.println("TaskDaoImplTest findAll Start"); List<Task> list =
-	 * taskDao.findAll(); System.out.println(list.get(0).getTitle());
-	 * System.out.println(list.size());
-	 * System.out.println(list.get(0).getTaskType().getType());
-	 * 
-	 * //件数のチェック assertEquals(2,list.size());
-	 * 
-	 * //各カラムの値が正しくセットされているか assertEquals(1,list.get(0).getId());
-	 * assertEquals(1,list.get(0).getUserId());
-	 * assertEquals(1,list.get(0).getTypeId());
-	 * assertEquals("JUnitを学習",list.get(0).getTitle());
-	 * assertEquals("テストの仕方を学習する",list.get(0).getDetail()); String date =
-	 * "2020-07-07 15:00:00"; DateTimeFormatter dtFt =
-	 * DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	 * assertEquals(LocalDateTime.parse(date, dtFt),list.get(0).getDeadline());
-	 * assertEquals("緊急",list.get(0).getTaskType().getType());
-	 * assertEquals("最優先で取り掛かるべきタスク",list.get(0).getTaskType().getContent());
-	 * 
-	 * }
-	 */
-	
-	
-	/*
-	 * @Test
-	 * 
-	 * @DisplayName("findByIdのテスト") void testfindById() {
-	 * System.out.println("TaskDaoImplTest findById Start"); Optional<Task> taskOpt
-	 * = taskDao.findById(1); Task task = new Task(); if(taskOpt.isPresent()) { task
-	 * = taskOpt.get(); System.out.println("isPresent OK"); }
-	 * 
-	 * //各カラムの値が正しくセットされているか assertEquals(1,task.getId());
-	 * assertEquals(1,task.getUserId()); assertEquals(1,task.getTypeId());
-	 * assertEquals("JUnitを学習",task.getTitle());
-	 * assertEquals("テストの仕方を学習する",task.getDetail()); String date =
-	 * "2020-07-07 15:00:00"; DateTimeFormatter dtFt =
-	 * DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	 * assertEquals(LocalDateTime.parse(date, dtFt),task.getDeadline());
-	 * assertEquals("緊急",task.getTaskType().getType());
-	 * assertEquals("最優先で取り掛かるべきタスク",task.getTaskType().getContent());
-	 * 
-	 * }
-	 */
 	
 	@Test
     @DisplayName("insertのテスト")
