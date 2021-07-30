@@ -59,8 +59,7 @@ public class UserDaoImpl implements UserDao {
 		//count = (Integer)result.get("count");
 		System.out.println((String)result.get("count"));
         
- 		//System.out.println(userResult.getId());
-		//System.out.println(result.size());
+ 		
 		System.out.println("Dao");
 		System.out.println(count);
 		
