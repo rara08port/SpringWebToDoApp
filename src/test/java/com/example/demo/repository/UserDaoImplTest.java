@@ -51,10 +51,8 @@ public class UserDaoImplTest {
 		user.setPassword("dog");
 		user.setAdmin_flg(0);
 		int count=10;
-		System.out.println(count);
-		count = userDao.findRegisterUser(user);
 		
-		System.out.println(count);
+		count = userDao.findRegisterUser(user);
 		
 		//件数チェック
         assertEquals(1,count);
