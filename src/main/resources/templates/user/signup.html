@@ -18,13 +18,14 @@
 <div style="width:600px;border:solid 1px black;margin-left:auto;margin-right:auto;">
 <h1 class="h3 mt-2 mb-3 font-weight-normal" style="text-align:center;">登録</h1>
 <img th:src="@{/image/1907768.png}" style="width:160px;height:120px;margin-left:auto;margin-right:auto;display:block;"/>
-   <form class="w-75 mx-auto" th:action="@{/user/signup}" method="post" th:object="${signupForm}">
+   <form class="w-75 mx-auto" th:action="@{/user/signup}" method="post" th:object="${signUpForm}">
    <br>
    <input class="form-control"  type="text" name="username"  placeholder="ユーザ名"  autofocus/>
    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red;"></div>
    
    <br>
    <input class="form-control" id="password" type="password" name="password"  placeholder="パスワード" />
+   <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;"></div>
    
    <br>
    <input class="btn btn-outline-primary my-1" type="submit" value="登録"/>
