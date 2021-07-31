@@ -36,24 +36,11 @@ public class LoginController {
      * @return resources/templates下のHTMLファイル名
      */
     @GetMapping
-    public String task(TaskForm taskForm,Model model) {
-    	model.addAttribute("taskForm",taskForm);
+    public String task(LoginForm loginForm,Model model) {
+    	//model.addAttribute("taskForm",taskForm);
         model.addAttribute("title", "ログイン");
         return "user/login";
     }
-    /*
-    @GetMapping
-    public String getLogin(SignUpForm signupForm,Model model) {
-        model.addAttribute("title", "ログイン");
-        return "user/login";
-    }
-    */
-    /*
-    @GetMapping
-    public String task(TaskForm taskForm,Model model) {
-        model.addAttribute("title", "ログイン");
-        return "user/login";
-    }*/
     
     
     /**
@@ -64,61 +51,23 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login")
-    public String insert(@Valid @ModelAttribute TaskForm taskForm,BindingResult result, Model model) {
+    public String insert(@Valid @ModelAttribute LoginForm loginForm,BindingResult result, Model model) {
     	
-    	
-    		model.addAttribute("taskForm",taskForm);
+    	if(!result.hasErrors()) {
+        	
+    		return "redirect:/task";
+        	
+    		
+    	}else {
+    		model.addAttribute("loginForm",loginForm);
             model.addAttribute("title", "ログイン（バリデーション）");
             return "user/login";
+    	}
+    		
     	
         
     }
-    /*
-    @PostMapping("/login")
-    public String insert(@Valid @ModelAttribute SignUpForm  signupForm,BindingResult result, Model model) {
-    	
-    	if(!result.hasErrors()) {
-    		
-        	User user = new User();
-        	user.setUsername(signupForm.getUsername());
-        	user.setPassword(signupForm.getPassword());
-        	user.setAdmin_flg(0);
-        	
-        	
-        	return "redirect:/login";
-        	
-    		
-    	}else {
-    		model.addAttribute("signupForm",signupForm);
-            model.addAttribute("title", "ログイン（バリデーション）");
-            return "user/login";
-    	}
-        
-    }*/
-    /*
-    @PostMapping("/login")
-    public String insert(@Valid @ModelAttribute TaskForm taskForm,BindingResult result, Model model) {
-    	
-    	if(!result.hasErrors()) {
-    		
-    		Task task = new Task();
-        	task.setUserId(1);
-        	task.setTypeId(taskForm.getTypeId());
-        	task.setTitle(taskForm.getTitle());
-        	task.setDetail(taskForm.getDetail());
-        	task.setDeadline(taskForm.getDeadline());
-        	
-        	
-        	return "redirect:/login";
-        	
-    		
-    	}else {
-    		model.addAttribute("taskForm",taskForm);
-            model.addAttribute("title", "ログイン（バリデーション）");
-            return "user/login";
-    	}
-        
-    }*/
     
+  
 
 }
