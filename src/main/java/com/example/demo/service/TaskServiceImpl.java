@@ -56,5 +56,18 @@ public class TaskServiceImpl implements TaskService {
 		// TODO 自動生成されたメソッド・スタブ
 		return dao.findByType(typeId);
 	}
+	
+	@Override
+	public List<Task> findListByUserId(int userId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return dao.findListByUserId(userId);
+	}
+	
+	@Override
+	public List<Task> findByTypeUserId(int typeId,int userId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return dao.findByTypeUserId(typeId,userId);
+	}
+	
 
 }

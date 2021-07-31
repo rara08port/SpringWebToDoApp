@@ -19,5 +19,9 @@ public interface TaskService {
 
 	List<Task> findByType(int typeId);
 	
+	List<Task> findListByUserId(int userId);
+	
+	List<Task> findByTypeUserId(int typeId,int userId);
+	
 
 }
