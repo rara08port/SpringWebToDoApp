@@ -145,5 +145,78 @@ public class TaskDaoImpl implements TaskDao {
 		}
 		return list;
     }
+    
+    
+    @Override
+    public List<Task> findListByUserId(int userId) {
+        // TODO 自動生成されたメソッド・スタブ
+        
+        String sql = "SELECT task.id, user_id, type_id, title, detail, deadline, "
+                + "type, content FROM task "
+                + "INNER JOIN task_type ON task.type_id = task_type.id "
+                + "WHERE user_id = ? "
+                + "ORDER BY type_id ASC, deadline ASC";
+        
+        List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql,userId);
+        
+        List<Task> list = new ArrayList<>();
+        
+        for(Map<String, Object> result : resultList) {
+
+            Task task = new Task();
+            task.setId((int)result.get("id"));
+            task.setUserId((int)result.get("user_id"));
+            task.setTypeId((int)result.get("type_id"));
+            task.setTitle((String)result.get("title"));
+            task.setDetail((String)result.get("detail"));
+            task.setDeadline((LocalDateTime)result.get("deadline"));    
+
+            TaskType type = new TaskType();
+            type.setId((int)result.get("type_id"));
+            type.setType((String)result.get("type"));
+            type.setContent((String)result.get("content"));
+            task.setTaskType(type);
+
+            list.add(task);
+        }
+        return list;
+        
+    }
+    
+    
+    @Override
+    public List<Task> findByTypeUserId(int typeId,int userId) {
+        // TODO 自動生成されたメソッド・スタブ
+    	String sql = "SELECT task.id, user_id, type_id, title, detail, deadline, "
+				+ "type, content FROM task "
+				+ "INNER JOIN task_type ON task.type_id = task_type.id "
+				+ "WHERE task.type_id = ? AND user_id = ? "
+				+ "ORDER BY deadline ASC";
+
+		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql,typeId,userId);
+
+		List<Task> list = new ArrayList<>();
+
+		for(Map<String, Object> result : resultList) {
+
+			Task task = new Task();
+			task.setId((int)result.get("id"));
+			task.setUserId((int)result.get("user_id"));
+			task.setTypeId((int)result.get("type_id"));
+			task.setTitle((String)result.get("title"));
+			task.setDetail((String)result.get("detail"));
+			task.setDeadline((LocalDateTime)result.get("deadline"));
+
+			TaskType type = new TaskType();
+			type.setId((int)result.get("type_id"));
+			type.setType((String)result.get("type"));
+			type.setContent((String)result.get("content"));
+			task.setTaskType(type);
+
+			list.add(task);
+		}
+		return list;
+    }
+    
 
 }
