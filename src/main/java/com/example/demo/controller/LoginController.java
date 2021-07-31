@@ -35,7 +35,7 @@ public class LoginController {
      * @return resources/templates下のHTMLファイル名
      */
     @GetMapping
-    public String task(LoginForm taskForm,Model model) {
+    public String task(TaskForm taskForm,Model model) {
         model.addAttribute("title", "ログイン");
         return "user/login";
     }
@@ -62,7 +62,7 @@ public class LoginController {
      * @return
      */
     @PostMapping("/login")
-    public String insert(@Valid @ModelAttribute LoginForm taskForm,BindingResult result, Model model) {
+    public String insert(@Valid @ModelAttribute TaskForm taskForm,BindingResult result, Model model) {
     	
     	
     		model.addAttribute("taskForm",taskForm);
