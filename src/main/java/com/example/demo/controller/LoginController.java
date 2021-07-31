@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import com.example.demo.app.task.TaskForm;
 import com.example.demo.entity.Task;
 import com.example.demo.entity.User;
@@ -36,6 +37,7 @@ public class LoginController {
      */
     @GetMapping
     public String task(TaskForm taskForm,Model model) {
+    	model.addAttribute("taskForm",taskForm);
         model.addAttribute("title", "ログイン");
         return "user/login";
     }
