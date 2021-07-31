@@ -65,17 +65,20 @@ public class SignUpController {
     		return "redirect:/task";
     	}
     	model.addAttribute("signupForm", signupForm);
-    	model.addAttribute("title", "ユーザ登録");
-    	//return "redirect:/task/index";
+    	model.addAttribute("title", "ユーザ登録済み");
     	 return "user/signup";
     	 */
     	
     	
     	if (!result.hasErrors()) {  	
-    		System.out.println("ユーザ登録");
-    		//userService.insert(user);
-    		//return "task/index";
-    		return "redirect:/task";
+    		if(count==0) {
+        		System.out.println("ユーザ登録");
+        		userService.insert(user);
+        		return "redirect:/task";
+        	}
+        	model.addAttribute("signUpForm", signUpForm);
+        	model.addAttribute("title", "ユーザ登録済み");
+        	return "user/signup";
         } else {
         	
         	model.addAttribute("signuUpForm", signUpForm);
