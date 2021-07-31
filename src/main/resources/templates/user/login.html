@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>タスク</title>
+<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div style="margin-left:auto;margin-right:auto;text-align:left;width:850px;">
+
+<h1 th:text="${title}">ようこそ</h1>
+
+
+
+<form method="POST" th:action="@{/login/login}" th:object="${taskForm}">
+  <table style="border-collapse:collapse;" id="set_table">
+    <tr>
+      <td>タスクタイプ:</td>
+      <td>
+        <select name="typeId">
+          <option value="1" th:selected="*{typeId == 1}">緊急</option>
+          <option value="2" th:selected="*{typeId == 2}">重要</option>
+          <option value="3" th:selected="*{typeId == 3}">できれば</option>
+        </select>
+      </td>
+      <td class="dummy_td"></td>
+     
+    </tr>
+    <tr>
+      <td>タスク：</td>
+      <td>
+        <input type="text" name="title" th:value="*{title}" style="width:240px;"/>
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red;"></div>
+      </td>
+      <td class="dummy_td"></td>
+     
+    </tr>
+    <tr>
+      <td>タスク詳細：</td>
+      <td colspan="2">
+        <input type="text" name="detail" th:value="*{detail}" style="width:550px;"/>
+        <div th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" style="color:red;"></div>
+      </td>
+    </tr>
+    <tr>
+      <td>期限：</td>
+      <td>
+      <input type="datetime-local" name="deadline" th:value="*{deadline}" />
+      <div th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}" style="color:red;"></div>
+      </td>
+      <td class="dummy_td"></td>
+    </tr>
+  </table>
+    <input type="submit" value="タスク登録" >
+</form>
+<br>
+<table>
+
+
+
+</div>
+
+</div>
+</body>
+</html>
