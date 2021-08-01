@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +31,9 @@ public class LoginController {
         this.userService = userService;
     }
     
+    @Autowired
+    HttpSession session;
+    
     
     /**
      * ログイン画面を表示
@@ -38,7 +43,9 @@ public class LoginController {
     @GetMapping
     public String task(LoginForm loginForm,Model model) {
     	//model.addAttribute("taskForm",taskForm);
+    	
         model.addAttribute("title", "ログイン");
+        //session.setAttribute("sessionMessage","test Message session");
         return "user/login";
     }
     

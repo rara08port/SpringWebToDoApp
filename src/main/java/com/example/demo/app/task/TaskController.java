@@ -5,8 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +33,9 @@ public class TaskController {
         this.taskService = taskService;
     }
     
+    @Autowired
+    HttpSession session;
+    
     /**
      * タスクの一覧を表示
      * @param model
@@ -38,6 +43,11 @@ public class TaskController {
      */
     @GetMapping
     public String task(TaskForm taskForm,Model model) {
+    	
+    	//String message= (String) session.getAttribute("sessionMessage");
+    	//session.removeAttribute("sessionMessage");
+    	//System.out.println("TaskController task");
+    	//System.out.println(message);
 
         //Taskのリストを取得する
         List<Task> taskList = taskService.findAll();
