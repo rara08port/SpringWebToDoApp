@@ -36,6 +36,9 @@ public class TaskController {
     @Autowired
     HttpSession session;
     
+    String username="";
+    String userId="";
+    
     /**
      * タスクの一覧を表示
      * @param model
@@ -46,11 +49,20 @@ public class TaskController {
     	
     	//String message= (String) session.getAttribute("sessionMessage");
     	//session.removeAttribute("sessionMessage");
+    	
     	//System.out.println("TaskController task");
     	//System.out.println(message);
+    	System.out.println("TaskController task");
+    	System.out.println(session.getAttribute("userId"));
+    	System.out.println(session.getAttribute("username"));
 
         //Taskのリストを取得する
-        List<Task> taskList = taskService.findAll();
+    	int userId = (int)session.getAttribute("userId");
+    	
+    	//List<Task> taskList = taskService.findAll();
+    	List<Task> taskList = taskService.findListByUserId(userId);
+        
+        model.addAttribute("username",session.getAttribute("username"));
 
         model.addAttribute("taskList", taskList);
         model.addAttribute("title", "タスク一覧");
@@ -103,9 +115,11 @@ public class TaskController {
     	
     	
     	if(!result.hasErrors()) {
+    		int userId = (int)session.getAttribute("userId");
     		
     		Task task = new Task();
-        	task.setUserId(1);
+    		
+        	task.setUserId(userId);
         	task.setTypeId(taskForm.getTypeId());
         	task.setTitle(taskForm.getTitle());
         	task.setDetail(taskForm.getDetail());

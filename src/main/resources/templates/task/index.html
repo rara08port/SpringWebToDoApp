@@ -10,6 +10,10 @@
 <div style="margin-left:auto;margin-right:auto;text-align:left;width:850px;">
 
 <h1 th:text="${title}">ようこそ</h1>
+<!--ユーザ：<span  th:text="${username}"></span>-->
+<form method="GET" th:action="@{/logout}">
+      <input type="submit" value="ログアウト">
+</form>
 
 <form method="POST" th:action="@{/task/insert}" th:object="${taskForm}">
   <table style="border-collapse:collapse;" id="set_table">

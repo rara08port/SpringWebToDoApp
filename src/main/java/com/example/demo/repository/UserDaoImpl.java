@@ -94,6 +94,24 @@ public class UserDaoImpl implements UserDao {
                 user.getUsername(),user.getPassword());
 
 	}
+	
+	
+	@Override
+	public int findLoginUserCheck(User user) {
+		// TODO 自動生成されたメソッド・スタブ
+		System.out.println("UserDaoImp findRegisterUser");
+		
+		int count=10;
+		
+		String sql = "SELECT count(*) as count FROM user where name = ? AND password = ? ";
+		
+		Map<String, Object> result = jdbcTemplate.queryForMap(sql, user.getUsername(),user.getPassword());
+		
+		long lnum = (long) result.get("count");
+		count = (int) lnum;
+				        		
+		return count;
+	}
 
 
 

@@ -2,8 +2,10 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +31,9 @@ public class SignUpController {
     public SignUpController(UserService userService) {
         this.userService = userService;
     }
+    
+    @Autowired
+    HttpSession session;
     
     /**
      * ユーザ登録画面を表示
@@ -74,6 +79,12 @@ public class SignUpController {
     		if(count==0) {
         		System.out.println("ユーザ登録");
         		userService.insert(user);
+        		User userData = new User();
+    			userData = userService.findLoginUser(user);
+    			
+        		session.setAttribute("userId",userData.getId());
+        		session.setAttribute("username", userData.getUsername());
+        		
         		return "redirect:/task";
         	}
         	model.addAttribute("signUpForm", signUpForm);

@@ -60,12 +60,35 @@ public class LoginController {
     @PostMapping("/login")
     public String insert(@Valid @ModelAttribute LoginForm loginForm,BindingResult result, Model model) {
     	
+    	User user = new User();
+    	user.setUsername(loginForm.getUsername());
+    	user.setPassword(loginForm.getPassword());
+    	user.setAdmin_flg(0);
+    	int count=10;
+    	count = userService.findLoginUserCheck(user);
+    	
     	if(!result.hasErrors()) {
-        	
-    		return "redirect:/task";
-        	
+    		System.out.println("aaaa");
+    		//session.setAttribute("sessionMessage","test Message session");
+    		
+    		if(count!=0) {
+    			System.out.println("bbbb");
+    			User userData = new User();
+    			userData = userService.findLoginUser(user);
+    			
+        		session.setAttribute("userId",userData.getId());
+        		session.setAttribute("username", userData.getUsername());
+        		
+        		return "redirect:/task";
+        	}
+    		
+        	model.addAttribute("loginForm", loginForm);
+        	model.addAttribute("title", "ユーザ未登録");
+        	return "user/login";
+        	       	
     		
     	}else {
+    		
     		model.addAttribute("loginForm",loginForm);
             model.addAttribute("title", "ログイン（バリデーション）");
             return "user/login";

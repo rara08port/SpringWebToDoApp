@@ -10,5 +10,8 @@ public interface UserService {
 	User findLoginUser(User user);
 	
 	void insert(User user);
+	
+	int findLoginUserCheck(User user);
+	
 
 }

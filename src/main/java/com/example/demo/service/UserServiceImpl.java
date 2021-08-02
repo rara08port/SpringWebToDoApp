@@ -35,5 +35,12 @@ public class UserServiceImpl implements UserService {
 		dao.insert(user);
 
 	}
+	
+	@Override
+	public int findLoginUserCheck(User user) {
+		// TODO 自動生成されたメソッド・スタブ
+		return dao.findLoginUserCheck(user);
+		
+	}
 
 }

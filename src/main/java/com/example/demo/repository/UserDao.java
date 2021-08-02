@@ -15,5 +15,7 @@ public interface UserDao {
 	
 	void insert(User user);
 	
+	int findLoginUserCheck(User user);
+	
 
 }
