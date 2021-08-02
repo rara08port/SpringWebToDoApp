@@ -57,6 +57,9 @@ public class TaskController {
     	System.out.println(session.getAttribute("username"));
 
         //Taskのリストを取得する
+    	if(session.getAttribute("userId")==null) {
+        	return "redirect:/login/";
+        }
     	int userId = (int)session.getAttribute("userId");
     	
     	//List<Task> taskList = taskService.findAll();
@@ -81,6 +84,17 @@ public class TaskController {
 
         Optional<Task> taskOpt = taskService.getTask(id);
         Task task = new Task();
+        //int userId = (int)session.getAttribute("userId");
+        //System.out.println(userId);
+        System.out.println(session.getAttribute("userId"));
+        if(session.getAttribute("userId")==null) {
+        	return "redirect:/login/";
+        }
+        int userId = (int)session.getAttribute("userId");
+        if(userId != task.getId()) {
+        	
+        	return "redirect:/login/";
+        }
         
         if(taskOpt.isPresent()) {
         	task = taskOpt.get();
