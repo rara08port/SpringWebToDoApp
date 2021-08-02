@@ -7,13 +7,9 @@
 </head>
 <body>
 
-<div style="margin-left:auto;margin-right:auto;text-align:left;width:850px;">
-
-<!--<h1 th:text="${title}">ようこそ</h1>-->
-
-
 <div style="width:600px;border:solid 1px black;margin-left:auto;margin-right:auto;margin-top:50px;">
-<h1 class="h3 mt-2 mb-3 font-weight-normal" style="text-align:center;">ログイン</h1>
+<!--<h1 class="h3 mt-2 mb-3 font-weight-normal" style="text-align:center;">ログイン</h1>-->
+<h1 class="h3 mt-2 mb-3 font-weight-normal" style="text-align:center;" th:text="${title}">ようこそ</h1>
 <img th:src="@{/image/1907768.png}" style="width:160px;height:120px;margin-left:auto;margin-right:auto;display:block;"/>
    <form class="w-75 mx-auto" th:action="@{/login/login}" method="post" th:object="${loginForm}">
    <br>
@@ -27,12 +23,12 @@
    <br>
    <input class="btn btn-outline-primary my-1" type="submit" value="ログイン"/>
    </form>
+   <br>
+   <p><a th:href="@{/top}">TOP戻る</a></p>
+   <br>
 </div>
 
 
 
-</div>
-
-</div>
 </body>
 </html>
