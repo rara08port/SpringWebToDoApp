@@ -237,8 +237,23 @@ public class TaskController {
     public String selectType(TaskForm taskForm,
     		@RequestParam("typeId") int id,
     		Model model) {
+    	
+    	System.out.println("TaskController selectType");
+    	System.out.println(session.getAttribute("userId"));
+    	System.out.println(session.getAttribute("username"));
 
-        List<Task> taskList = taskService.findByType(id);
+        //Taskのリストを取得する
+    	if(session.getAttribute("userId")==null) {
+        	return "redirect:/login/";
+        }
+    	
+        int userId = (int)session.getAttribute("userId");
+        
+
+        //List<Task> taskList = taskService.findByType(id);
+        List<Task> taskList = taskService.findByTypeUserId(id, userId);
+        
+        
 
         model.addAttribute("taskList", taskList);
         model.addAttribute("title", "タスク一覧");

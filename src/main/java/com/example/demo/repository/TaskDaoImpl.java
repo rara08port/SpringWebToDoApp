@@ -28,7 +28,7 @@ public class TaskDaoImpl implements TaskDao {
         String sql = "SELECT task.id, user_id, type_id, title, detail, deadline, "
                 + "type, content FROM task "
                 + "INNER JOIN task_type ON task.type_id = task_type.id "
-                + "ORDER BY type_id ASC, deadline ASC";
+                + "ORDER BY deadline ASC , type_id ASC ";
         
         List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
         
@@ -155,7 +155,7 @@ public class TaskDaoImpl implements TaskDao {
                 + "type, content FROM task "
                 + "INNER JOIN task_type ON task.type_id = task_type.id "
                 + "WHERE user_id = ? "
-                + "ORDER BY type_id ASC, deadline ASC";
+                + "ORDER BY deadline ASC , type_id ASC ";
         
         List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql,userId);
         
