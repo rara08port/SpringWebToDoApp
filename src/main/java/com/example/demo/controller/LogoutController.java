@@ -18,18 +18,18 @@ public class LogoutController {
     HttpSession session;
 	
 	 /**
-     * ログイン画面を表示
+     * ログアウトセッション削除
      * @param model
      * @return resources/templates下のHTMLファイル名
      */
     @GetMapping
     public String logout(LoginForm loginForm,Model model) {
-    	//model.addAttribute("taskForm",taskForm);
+    	
     	session.removeAttribute("userId");
     	session.removeAttribute("username");
     	
         model.addAttribute("title", "ログイン");
-        //session.setAttribute("sessionMessage","test Message session");
+        
         return "user/login";
     }
 

@@ -42,10 +42,9 @@ public class LoginController {
      */
     @GetMapping
     public String task(LoginForm loginForm,Model model) {
-    	//model.addAttribute("taskForm",taskForm);
     	
         model.addAttribute("title", "ログイン");
-        //session.setAttribute("sessionMessage","test Message session");
+       
         return "user/login";
     }
     
@@ -68,14 +67,10 @@ public class LoginController {
     	count = userService.findLoginUserCheck(user);
     	
     	if(!result.hasErrors()) {
-    		System.out.println("aaaa");
-    		//session.setAttribute("sessionMessage","test Message session");
-    		
-    		if(count!=0) {
-    			System.out.println("bbbb");
-    			User userData = new User();
-    			userData = userService.findLoginUser(user);
     			
+    		if(count!=0) {		
+    			User userData = new User();
+    			userData = userService.findLoginUser(user);	
         		session.setAttribute("userId",userData.getId());
         		session.setAttribute("username", userData.getUsername());
         		
@@ -93,8 +88,6 @@ public class LoginController {
             model.addAttribute("title", "ログイン（バリデーション）");
             return "user/login";
     	}
-    		
-    	
         
     }
     

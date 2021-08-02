@@ -47,15 +47,6 @@ public class TaskController {
     @GetMapping
     public String task(TaskForm taskForm,Model model) {
     	
-    	//String message= (String) session.getAttribute("sessionMessage");
-    	//session.removeAttribute("sessionMessage");
-    	
-    	//System.out.println("TaskController task");
-    	//System.out.println(message);
-    	System.out.println("TaskController task");
-    	System.out.println(session.getAttribute("userId"));
-    	System.out.println(session.getAttribute("username"));
-
         //Taskのリストを取得する
     	if(session.getAttribute("userId")==null) {
         	return "redirect:/login/";
@@ -81,26 +72,20 @@ public class TaskController {
      */
     @GetMapping("/{id}")
     public String editTask(TaskForm taskForm,@PathVariable int id,Model model) {
-    	System.out.println("editTask TaskController");
-
+    	
         Optional<Task> taskOpt = taskService.getTask(id);
         Task task = new Task();
-        //int userId = (int)session.getAttribute("userId");
-        //System.out.println(userId);
+        
         
         if(taskOpt.isPresent()) {
         	task = taskOpt.get();
-        }
-        
-        System.out.println(session.getAttribute("userId"));
+        }   
         
         if(session.getAttribute("userId")==null) {
         	return "redirect:/login/";
         }
         int userId = (int)session.getAttribute("userId");
         
-        System.out.println(userId);
-        System.out.println(task.getId());
         if(userId != task.getUserId()) {
         	return "redirect:/login/";
         }
@@ -123,15 +108,6 @@ public class TaskController {
      */
     @PostMapping("/insert")
     public String insert(@Valid @ModelAttribute TaskForm taskForm,BindingResult result, Model model) {
-
-//        Task task = new Task();
-//        task.setUserId(1);
-//        task.setTypeId(1);
-//        task.setTitle("インサート");
-//        task.setDetail("インサートの詳細です");
-//        String date = "2021-03-03 15:00:00";
-//        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        task.setDeadline(LocalDateTime.parse(date, dtFt));
     	
     	
     	if(!result.hasErrors()) {
@@ -148,10 +124,6 @@ public class TaskController {
         	taskService.insert(task);
         	return "redirect:/task";
         	
-            //List<Task> taskList = taskService.findAll();
-            //model.addAttribute("taskList", taskList);
-            //model.addAttribute("title", "タスク一覧（バリデーション）");
-            //return "task/index";
     		
     	}else {
     		model.addAttribute("taskForm",taskForm);
@@ -176,15 +148,6 @@ public class TaskController {
         	@RequestParam("taskId") int taskId,
         	Model model,RedirectAttributes redirectAttributes) {
     	
-//    	Task task = new Task();
-//    	task.setId(1);
-//        task.setUserId(1);
-//        task.setTypeId(3);
-//        task.setTitle("アップデート");
-//        task.setDetail("アップデートの詳細です");
-//        String date = "2021-07-27 15:12:34";
-//        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        task.setDeadline(LocalDateTime.parse(date, dtFt));
     	
     	if (!result.hasErrors()) {
     		Task task = new Task();
@@ -204,13 +167,7 @@ public class TaskController {
             model.addAttribute("taskForm", taskForm);
             model.addAttribute("title", "タスク一覧");
             return "task/index";
-            
         }
-   
-//    	List<Task> taskList = taskService.findAll();
-//        model.addAttribute("taskList", taskList);
-//        model.addAttribute("title", "タスク一覧（バリデーション）");
-//        return "task/index";
         
     }
     
@@ -237,24 +194,16 @@ public class TaskController {
     public String selectType(TaskForm taskForm,
     		@RequestParam("typeId") int id,
     		Model model) {
-    	
-    	System.out.println("TaskController selectType");
-    	System.out.println(session.getAttribute("userId"));
-    	System.out.println(session.getAttribute("username"));
 
-        //Taskのリストを取得する
     	if(session.getAttribute("userId")==null) {
         	return "redirect:/login/";
         }
     	
         int userId = (int)session.getAttribute("userId");
         
-
         //List<Task> taskList = taskService.findByType(id);
         List<Task> taskList = taskService.findByTypeUserId(id, userId);
         
-        
-
         model.addAttribute("taskList", taskList);
         model.addAttribute("title", "タスク一覧");
 

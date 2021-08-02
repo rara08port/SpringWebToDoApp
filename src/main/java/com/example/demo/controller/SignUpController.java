@@ -60,24 +60,11 @@ public class SignUpController {
     	user.setAdmin_flg(0);
     	int count=10;
     	count = userService.findRegisterUser(user);
-    
-    	
-		
-    	/*if(count==0) {
-    		System.out.println("ユーザ登録");
-    		//userService.insert(user);
-    		//return "task/index";
-    		return "redirect:/task";
-    	}
-    	model.addAttribute("signupForm", signupForm);
-    	model.addAttribute("title", "ユーザ登録済み");
-    	 return "user/signup";
-    	 */
     	
     	
     	if (!result.hasErrors()) {  	
     		if(count==0) {
-        		System.out.println("ユーザ登録");
+        		
         		userService.insert(user);
         		User userData = new User();
     			userData = userService.findLoginUser(user);

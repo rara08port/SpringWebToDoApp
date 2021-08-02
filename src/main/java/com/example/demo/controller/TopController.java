@@ -12,16 +12,15 @@ import com.example.demo.form.LoginForm;
 public class TopController {
 	
 	/**
-     * ログイン画面を表示
+     * トップ画面を表示
      * @param model
      * @return resources/templates下のHTMLファイル名
      */
     @GetMapping
     public String top(Model model) {
-    	//model.addAttribute("taskForm",taskForm);
-    	
+    		
         model.addAttribute("title", "ログイン");
-        //session.setAttribute("sessionMessage","test Message session");
+        
         return "top/top";
     }
 

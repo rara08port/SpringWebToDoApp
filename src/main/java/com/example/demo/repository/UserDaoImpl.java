@@ -46,7 +46,6 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int findRegisterUser(User user) {
 		// TODO 自動生成されたメソッド・スタブ
-		System.out.println("UserDaoImp findRegisterUser");
 		
 		int count=10;
 		
