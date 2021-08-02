@@ -81,24 +81,30 @@ public class TaskController {
      */
     @GetMapping("/{id}")
     public String editTask(TaskForm taskForm,@PathVariable int id,Model model) {
+    	System.out.println("editTask TaskController");
 
         Optional<Task> taskOpt = taskService.getTask(id);
         Task task = new Task();
         //int userId = (int)session.getAttribute("userId");
         //System.out.println(userId);
-        System.out.println(session.getAttribute("userId"));
-        if(session.getAttribute("userId")==null) {
-        	return "redirect:/login/";
-        }
-        int userId = (int)session.getAttribute("userId");
-        if(userId != task.getId()) {
-        	
-        	return "redirect:/login/";
-        }
         
         if(taskOpt.isPresent()) {
         	task = taskOpt.get();
         }
+        
+        System.out.println(session.getAttribute("userId"));
+        
+        if(session.getAttribute("userId")==null) {
+        	return "redirect:/login/";
+        }
+        int userId = (int)session.getAttribute("userId");
+        
+        System.out.println(userId);
+        System.out.println(task.getId());
+        if(userId != task.getUserId()) {
+        	return "redirect:/login/";
+        }
+        
 
         model.addAttribute("taskForm", task);
         List<Task> taskList = taskService.findAll();
