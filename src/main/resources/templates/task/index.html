@@ -86,13 +86,13 @@
 
 <table style="border-collapse:collapse;margin-left:0px;">
   <tr>
-    <td>No</td>
+    <!--<td>No</td>-->
     <td>タイプ</td>
     <td>タスク</td>
     <td>期限</td>
   </tr>
   <tr th:each="list : ${taskList}">
-    <td th:text=${list.id}></td>
+    <!--<td th:text=${list.id}></td>-->
     <td th:text=${list.taskType.type}></td>
     <td th:text=${list.title}></td>
     <td th:text=${list.deadline}></td>
