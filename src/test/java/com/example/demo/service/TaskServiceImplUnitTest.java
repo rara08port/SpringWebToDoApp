@@ -104,6 +104,22 @@ public class TaskServiceImplUnitTest {
     @Test
     @DisplayName("Updateのテスト")
     void testUpdate() {
+    	
+    	Task task = new Task();
+    	task.setId(5);
+    	task.setUserId(1);
+    	task.setTypeId(2);
+    	task.setTitle("testUpdateTitle");
+    	task.setDetail("testUpdateDetail");
+    	String date = "2020-07-07 15:00:00";
+        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        task.setDeadline(LocalDateTime.parse(date, dtFt));
+    	
+        
+        doNothing().when(dao).update(task);
+        taskServiceImpl.update(task);
+        
+        verify(dao, times(1)).update(task);
 
         
     }
