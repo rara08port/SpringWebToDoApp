@@ -1,10 +1,13 @@
 package com.example.demo.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -73,7 +76,28 @@ public class TaskServiceImplUnitTest {
     @Test
     @DisplayName("Insertのテスト")
     void testInsert() {
-
+    	
+    	Task task = new Task();
+    	task.setId(5);
+    	task.setUserId(1);
+    	task.setTypeId(2);
+    	task.setTitle("testInsertTitle");
+    	task.setDetail("testInsertDetail");
+    	String date = "2020-07-07 15:00:00";
+        DateTimeFormatter dtFt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        task.setDeadline(LocalDateTime.parse(date, dtFt));
+    	//モックから返すListセット
+        List<Task> list = new ArrayList<>();
+        Task task1 = new Task();
+        Task task2 = new Task();
+        list.add(task1);
+        list.add(task2);
+        
+        doNothing().when(dao).insert(task);
+        taskServiceImpl.insert(task);
+        
+        verify(dao, times(1)).insert(task);
+      
         
     }
     
