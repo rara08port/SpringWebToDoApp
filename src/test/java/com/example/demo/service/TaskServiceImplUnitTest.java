@@ -127,7 +127,12 @@ public class TaskServiceImplUnitTest {
     @Test
     @DisplayName("idに対応したDeleteのテスト")
     void testDeleteById() {
-
+    	int id = 1;
+    	
+    	doNothing().when(dao).deleteById(id);
+    	taskServiceImpl.deleteById(id);
+    	
+        verify(dao, times(1)).deleteById(id);
         
     }
     
