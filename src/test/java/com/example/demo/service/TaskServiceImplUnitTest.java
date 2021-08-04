@@ -183,6 +183,22 @@ public class TaskServiceImplUnitTest {
     @DisplayName("UserIdとタイプidに対応したTask取得のテスト")
 	void testfindByTypeUserId() {
 		// TODO 自動生成されたメソッド・スタブ
+    	int userId = 1;
+    	int typeId = 2;
+    	List<Task> list = new ArrayList<>();
+        Task task1 = new Task();
+        Task task2 = new Task();
+        list.add(task1);
+        list.add(task2);
+        
+        when(dao.findByTypeUserId(typeId,userId)).thenReturn(list);
+
+        List<Task> actualList= taskServiceImpl.findByTypeUserId(typeId, userId);
+
+        verify(dao, times(1)).findByTypeUserId(typeId, userId);
+        
+        assertEquals(2, actualList.size());
+
 		
 	}
 	
