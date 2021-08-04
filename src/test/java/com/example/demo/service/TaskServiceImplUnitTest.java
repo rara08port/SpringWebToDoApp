@@ -140,6 +140,21 @@ public class TaskServiceImplUnitTest {
     @DisplayName("タイプ別タスク取得のテスト")
 	void testfindByType() {
 		// TODO 自動生成されたメソッド・スタブ
+    	int type = 2;
+    	//モックから返すListセット
+        List<Task> list = new ArrayList<>();
+        Task task1 = new Task();
+        Task task2 = new Task();
+        list.add(task1);
+        list.add(task2);
+        
+        when(dao.findByType(type)).thenReturn(list);
+
+        List<Task> actualList= taskServiceImpl.findByType(type);
+
+        verify(dao, times(1)).findByType(type);
+        
+        assertEquals(2, actualList.size());
 		
 	}
 	
@@ -147,6 +162,20 @@ public class TaskServiceImplUnitTest {
     @DisplayName("UserIdに対応したTaskリスト取得のテスト")
 	void testfindListByUserId() {
 		// TODO 自動生成されたメソッド・スタブ
+    	int userId = 1;
+    	List<Task> list = new ArrayList<>();
+        Task task1 = new Task();
+        Task task2 = new Task();
+        list.add(task1);
+        list.add(task2);
+        
+        when(dao.findListByUserId(userId)).thenReturn(list);
+
+        List<Task> actualList= taskServiceImpl.findListByUserId(userId);
+
+        verify(dao, times(1)).findListByUserId(userId);
+        
+        assertEquals(2, actualList.size());
 
 	}
 	
