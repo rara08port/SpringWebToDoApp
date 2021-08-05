@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Task;
@@ -27,7 +28,13 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Optional<Task> getTask(int id) {
 		// TODO 自動生成されたメソッド・スタブ
-		return dao.findById(id);
+		//return dao.findById(id);
+		
+		try {
+			return dao.findById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new RuntimeException("指定されたタスクが存在しません");
+		}
 	}
 
 	@Override
