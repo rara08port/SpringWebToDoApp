@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.example.demo.entity.Task;
 
@@ -71,6 +73,15 @@ public class TaskDaoImplTest {
         assertEquals("最優先で取り掛かるべきタスク",task.getTaskType().getContent());
 
     }
+	
+	@Test
+    @DisplayName("findByIdのテスト(レコードが取得できない場合)")
+    void testfindById2() {
+        // レコードが取得できず例外がスローされるか
+		//taskDao.findById(10);
+        assertThrows(EmptyResultDataAccessException.class, () -> taskDao.findById(10));
+    }
+
 	
 	@Test
     @DisplayName("insertのテスト")
