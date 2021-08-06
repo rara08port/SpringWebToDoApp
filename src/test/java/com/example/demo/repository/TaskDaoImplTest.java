@@ -78,7 +78,7 @@ public class TaskDaoImplTest {
 	private static final String CONNECTION_URL = "jdbc:mysql://localhost/SpringTodoApp";
 	private static final String USER = "root";
 	private static final String PASSWORD = "";
-	private static final String SCHEMA = "";
+	//private static final String SCHEMA = "";
 
     private static IDatabaseTester dbTester;
     //IDatabaseTester dbTester;
@@ -91,7 +91,7 @@ public class TaskDaoImplTest {
 		
 		
 		dbTester = new JdbcDatabaseTester(
-                DRIVER_NAME, CONNECTION_URL, USER, PASSWORD, SCHEMA) {
+                DRIVER_NAME, CONNECTION_URL, USER, PASSWORD) {
             @Override
             public IDatabaseConnection getConnection() throws Exception {
                 IDatabaseConnection con = super.getConnection();
@@ -104,30 +104,16 @@ public class TaskDaoImplTest {
                 new FlatXmlDataSetBuilder().build(new File("src/test/resources/data/init.xml"));
 
         dbTester.setDataSet(dataSet);
-        dbTester.setSetUpOperation(DatabaseOperation.REFRESH);
+        //dbTester.setSetUpOperation(DatabaseOperation.DELETE_ALL);
+        //dbTester.setSetUpOperation(DatabaseOperation.INSERT);
+ 
+        //dbTester.setSetUpOperation(DatabaseOperation.REFRESH);
+        dbTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
 
         dbTester.onSetup();
 		
 		
-		/*
-        dbTester = new JdbcDatabaseTester(
-                DRIVER_NAME, CONNECTION_URL, USER, PASSWORD, SCHEMA) {
-            @Override
-            public IDatabaseConnection getConnection() throws Exception {
-                IDatabaseConnection con = super.getConnection();
-                con.getConfig().setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
-                return con;
-            }
-        };
-        
-        IDataSet dataSet =
-                new FlatXmlDataSetBuilder().build(new File("src/test/resources/data/init.xml"));
-
-        dbTester.setDataSet(dataSet);
-        dbTester.setSetUpOperation(DatabaseOperation.REFRESH);
-
-        dbTester.onSetup();
-        */
+		
     }
 
     @AfterAll
