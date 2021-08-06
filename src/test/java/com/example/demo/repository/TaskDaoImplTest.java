@@ -81,10 +81,8 @@ public class TaskDaoImplTest {
 	//private static final String SCHEMA = "";
 
     private static IDatabaseTester dbTester;
-    //IDatabaseTester dbTester;
-	
-	
-	//@DatabaseSetup("/src/test/resources/data/init.xml")
+    
+    
 	@BeforeAll
     public static void before() throws Exception {
 		System.out.println("before");
@@ -128,6 +126,20 @@ public class TaskDaoImplTest {
 	//@DatabaseSetup("/src/test/resources/data/init.xml")
     void testdbunit() {
 		System.out.println("TaskDaoImplTest DBunit Start");
+
+    }
+    
+    @Test
+    @DisplayName("DBUnitファイル比較のテスト")
+    public void testTableCompTset() throws Exception {    
+    	System.out.println("TaskDaoImplTest testTableCompTest Start");
+
+    	IDataSet databaseDataSet = dbTester.getConnection().createDataSet();
+    	ITable actualTable = databaseDataSet.getTable("task");
+    	IDataSet expectedDataSet =new FlatXmlDataSetBuilder().build(new File("src/test/resources/data/expected.xml"));
+    	ITable expectedTable = expectedDataSet.getTable("task");
+
+    	Assertion.assertEquals(actualTable,expectedTable);
 
     }
 	
