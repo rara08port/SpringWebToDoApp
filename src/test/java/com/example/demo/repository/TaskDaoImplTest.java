@@ -14,9 +14,11 @@ import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mysql.MySqlMetadataHandler;
 import org.dbunit.operation.DatabaseOperation;
@@ -40,6 +42,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -47,11 +50,20 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.example.demo.entity.Task;
 
+//@SpringBootTest
+@RunWith(SpringRunner.class)
 @SpringBootTest
+@TestExecutionListeners({
+    DependencyInjectionTestExecutionListener.class,
+    DbUnitTestExecutionListener.class
+})
 public class TaskDaoImplTest {
 	
 	@Autowired
 	private TaskDaoImpl taskDao;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	
 	
 	
@@ -71,9 +83,30 @@ public class TaskDaoImplTest {
     private static IDatabaseTester dbTester;
     //IDatabaseTester dbTester;
 	
+	
+	//@DatabaseSetup("/src/test/resources/data/init.xml")
 	@BeforeAll
     public static void before() throws Exception {
 		System.out.println("before");
+		
+		
+		dbTester = new JdbcDatabaseTester(
+                DRIVER_NAME, CONNECTION_URL, USER, PASSWORD, SCHEMA) {
+            @Override
+            public IDatabaseConnection getConnection() throws Exception {
+                IDatabaseConnection con = super.getConnection();
+                con.getConfig().setProperty(DatabaseConfig.PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
+                return con;
+            }
+        };
+        
+        IDataSet dataSet =
+                new FlatXmlDataSetBuilder().build(new File("src/test/resources/data/init.xml"));
+
+        dbTester.setDataSet(dataSet);
+        dbTester.setSetUpOperation(DatabaseOperation.REFRESH);
+
+        dbTester.onSetup();
 		
 		
 		/*
@@ -100,12 +133,21 @@ public class TaskDaoImplTest {
     @AfterAll
     public static void after() throws Exception {
     	System.out.println("after");
-    	//dbTester.setTearDownOperation(DatabaseOperation.NONE);
-        //dbTester.onTearDown();
+    	dbTester.setTearDownOperation(DatabaseOperation.NONE);
+        dbTester.onTearDown();
+    }
+    
+    @Test
+    @DisplayName("DBUnitのテスト")
+	//@DatabaseSetup("/src/test/resources/data/init.xml")
+    void testdbunit() {
+		System.out.println("TaskDaoImplTest DBunit Start");
+
     }
 	
 	@Test
     @DisplayName("findAllのテスト")
+	//@DatabaseSetup("src/test/resources/data/init.xml")
     void testfindAll() {
 		System.out.println("TaskDaoImplTest findAll Start");
 		List<Task> list = taskDao.findAll();
