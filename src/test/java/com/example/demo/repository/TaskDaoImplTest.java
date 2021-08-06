@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
+import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -25,9 +26,24 @@ import org.dbunit.IDatabaseTester;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringRunner;
+
+
+
+
+
+
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
 
 import com.example.demo.entity.Task;
 
@@ -36,6 +52,8 @@ public class TaskDaoImplTest {
 	
 	@Autowired
 	private TaskDaoImpl taskDao;
+	
+	
 	
 	//private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
     //private static final String CONNECTION_URL = "jdbc:mysql://localhost:3306/sample?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -56,6 +74,7 @@ public class TaskDaoImplTest {
 	@BeforeAll
     public static void before() throws Exception {
 		System.out.println("before");
+		
 		
 		/*
         dbTester = new JdbcDatabaseTester(
