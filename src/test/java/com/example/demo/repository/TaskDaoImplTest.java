@@ -125,6 +125,7 @@ public class TaskDaoImplTest {
     
     @Test
     @DisplayName("DBUnitファイル比較のテスト")
+    @Order(1) //
     public void testTableCompTset() throws Exception {    
     	System.out.println("TaskDaoImplTest testTableCompTest Start");
 
@@ -139,7 +140,7 @@ public class TaskDaoImplTest {
 	
 	@Test
     @DisplayName("findAllのテスト")
-	//@DatabaseSetup("src/test/resources/data/init.xml")
+	@Order(2) //
     void testfindAll() {
 		System.out.println("TaskDaoImplTest findAll Start");
 		List<Task> list = taskDao.findAll();
@@ -167,6 +168,7 @@ public class TaskDaoImplTest {
 	
 	@Test
     @DisplayName("findByIdのテスト")
+	@Order(3) //
     void testfindById() {
 		System.out.println("TaskDaoImplTest findById Start");
 		Optional<Task> taskOpt = taskDao.findById(1);
@@ -192,6 +194,7 @@ public class TaskDaoImplTest {
 	
 	@Test
     @DisplayName("findByIdのテスト(レコードが取得できない場合)")
+	@Order(4) //
     void testfindById2() {
         // レコードが取得できず例外がスローされるか
 		//taskDao.findById(10);
@@ -201,6 +204,7 @@ public class TaskDaoImplTest {
 	
 	@Test
     @DisplayName("insertのテスト")
+	@Order(5) //
     void testInsert() {
 		
 		System.out.println("TaskDaoImplTest testInsert Start");
@@ -225,11 +229,12 @@ public class TaskDaoImplTest {
 	
 	@Test
     @DisplayName("updateのテスト")
+	@Order(6) //
     void testUpdate() {
 		
 		System.out.println("TaskDaoImplTest testUpdate Start");
 		Task task = new Task();
-		task.setId(1);
+		task.setId(3);
 		task.setUserId(1);
 		task.setTypeId(3);
 		task.setTitle("Title Update");
@@ -243,37 +248,44 @@ public class TaskDaoImplTest {
 		List<Task> list = taskDao.findAll();
 		
 		//件数チェック
-		assertEquals(2,list.size());
+		//assertEquals(2,list.size());
+		assertEquals(3,list.size());
 		
-		Task taskx = list.get(0);
+		//Task taskx = list.get(0);
+		Optional<Task> taskx = taskDao.findById(3);
 				
-		assertEquals(1,taskx.getId());
-        assertEquals(1,taskx.getUserId());
-        assertEquals(3,taskx.getTypeId());
-        assertEquals("Title Update",taskx.getTitle());
-        assertEquals("Detail Update",taskx.getDetail());
-        assertEquals(LocalDateTime.parse(date, dtFt),taskx.getDeadline());
+		//assertEquals(1,taskx.getId());
+		
+        assertEquals(1,taskx.get().getUserId());
+        assertEquals(3,taskx.get().getTypeId());
+        assertEquals("Title Update",taskx.get().getTitle());
+        assertEquals("Detail Update",taskx.get().getDetail());
+        assertEquals(LocalDateTime.parse(date, dtFt),taskx.get().getDeadline());
         
 
     }
 	
 	@Test
     @DisplayName("deleteのテスト")
+	@Order(7) //
     void testDeleteById() {
 		
 		System.out.println("TaskDaoImplTest testDelete Start");
 		
-		taskDao.deleteById(2);
+		//taskDao.deleteById(2);
+		taskDao.deleteById(3);
 		
 		List<Task> list = taskDao.findAll();
 		
 		//件数チェック
-		assertEquals(1,list.size());
+		//assertEquals(1,list.size());
+		assertEquals(2,list.size());
 		
     }
 	
 	@Test
     @DisplayName("findByTypeのテスト")
+	@Order(8) //
     void testfindByType() {
 		System.out.println("TaskDaoImplTest findByType Start");
 		List<Task> list = taskDao.findByType(1);
@@ -285,7 +297,7 @@ public class TaskDaoImplTest {
         assertEquals(1,list.size());
         
         //各カラムの値が正しくセットされているか
-        assertEquals(1,list.get(0).getId());
+        //assertEquals(1,list.get(0).getId());
         assertEquals(1,list.get(0).getUserId());
         assertEquals(1,list.get(0).getTypeId());
         assertEquals("JUnitを学習",list.get(0).getTitle());
@@ -301,9 +313,10 @@ public class TaskDaoImplTest {
 	
 	@Test
     @DisplayName("findLisBytUserIdのテスト")
+	@Order(9) //
     void testfindListByUserId() {
 		System.out.println("TaskDaoImplTest findListByUserId Start");
-		int userId = 3;
+		int userId = 1;
 		List<Task> list = taskDao.findListByUserId(userId);
         System.out.println(list.get(0).getTitle());     
         System.out.println(list.size());
@@ -316,7 +329,7 @@ public class TaskDaoImplTest {
         //各カラムの値が正しくセットされているか
         
         //assertEquals(1,list.get(0).getId());
-        assertEquals(3,list.get(0).getUserId());
+        assertEquals(1,list.get(0).getUserId());
         assertEquals(1,list.get(0).getTypeId());
         assertEquals("JUnitを学習",list.get(0).getTitle());
         assertEquals("テストの仕方を学習する",list.get(0).getDetail());
@@ -332,9 +345,10 @@ public class TaskDaoImplTest {
 	
 	@Test
     @DisplayName("findByTypeUserIdのテスト")
+	@Order(10) //
     void testfindByTypeUserId() {
 		System.out.println("TaskDaoImplTest findByTypeUserId Start");
-		List<Task> list = taskDao.findByTypeUserId(1,3);
+		List<Task> list = taskDao.findByTypeUserId(1,1);
         System.out.println(list.get(0).getTitle());     
         System.out.println(list.size());
         System.out.println(list.get(0).getTaskType().getType());
@@ -344,7 +358,7 @@ public class TaskDaoImplTest {
         
         //各カラムの値が正しくセットされているか
         //assertEquals(1,list.get(0).getId());
-        assertEquals(3,list.get(0).getUserId());
+        assertEquals(1,list.get(0).getUserId());
         assertEquals(1,list.get(0).getTypeId());
         assertEquals("JUnitを学習",list.get(0).getTitle());
         assertEquals("テストの仕方を学習する",list.get(0).getDetail());
