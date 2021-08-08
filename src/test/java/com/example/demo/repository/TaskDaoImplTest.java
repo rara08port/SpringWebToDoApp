@@ -27,7 +27,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.dbunit.IDatabaseTester;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -57,6 +60,7 @@ import com.example.demo.entity.Task;
     DependencyInjectionTestExecutionListener.class,
     DbUnitTestExecutionListener.class
 })
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TaskDaoImplTest {
 	
 	@Autowired
