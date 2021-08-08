@@ -230,27 +230,6 @@ public class TaskDaoImplTest {
 		//件数チェック
 		assertEquals(3,list.size());
 		
-		
-		//Task taskx = list.get(2);
-		
-		//System.out.println(taskx.getDetail());
-		
-//		Task task1 = list.get(0);
-//		Task task2 = list.get(1);
-//		Task task3 = list.get(2);
-//		System.out.println(task1.getDetail());
-//		System.out.println(task2.getDetail());
-//		System.out.println(task3.getDetail());
-		
-		/*
-		assertEquals(3,taskx.getId());
-        assertEquals(1,taskx.getUserId());
-        assertEquals(1,taskx.getTypeId());
-        assertEquals("InsertTest",taskx.getTitle());
-        assertEquals("Insertテストの詳細",taskx.getDetail());
-        assertEquals(LocalDateTime.parse(date, dtFt),taskx.getDeadline());
-        */
-		
 
     }
 	
