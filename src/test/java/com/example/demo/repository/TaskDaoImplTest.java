@@ -96,8 +96,7 @@ public class TaskDaoImplTest {
                 new FlatXmlDataSetBuilder().build(new File("src/test/resources/data/init.xml"));
 
         dbTester.setDataSet(dataSet);
-        //dbTester.setSetUpOperation(DatabaseOperation.DELETE_ALL);
-        //dbTester.setSetUpOperation(DatabaseOperation.INSERT);
+       
  
         //dbTester.setSetUpOperation(DatabaseOperation.REFRESH);
         dbTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
