@@ -79,8 +79,6 @@ public class UserDaoImpl implements UserDao {
         
         userResult.setAdmin_flg((int)result.get("admin_flg"));
        
-        //taskをOptionalでラップする
-        //Optional<User> userOpt = Optional.ofNullable(userResult);
 
         return userResult;
 	}
